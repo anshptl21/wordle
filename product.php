@@ -170,7 +170,12 @@ function showSlides(n) {
 
     <label for="email" ><b></b></label>
     <input type="text" class="subscribe textarea" placeholder="example@gmail.com" name="email" required>
-        <div><button type="button" class="subscribe button">Submit</button></div>
+        <div><button type="button" class="subscribe button">Submit</button></div> <?php
+if($_POST["Message"]) {
+mail("anshptl21@gmail.com", "Contact form",
+$_POST["Insert Your Message"]. "From: anshptl21@gmail.com");
+}
+?>
 </form>
 </div>
 </div>
