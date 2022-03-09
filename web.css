@@ -113,6 +113,24 @@ a{
   box-shadow: none;    
   transition:0.4s ease-in-out; 
 }
+.mybutton1{
+  background: white;
+  font-size: 75%;
+  height: auto
+  color:#d4af37;
+  border: solid 2px black;
+  padding: 15px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 4px 4px black;
+}
+ .mybutton1 a{
+  text-decoration: none;
+}
+ .mybutton1 :hover{
+  box-shadow: none;    
+  transition:0.4s ease-in-out; 
+}
 
 #body .home{
   margin:auto;
@@ -152,18 +170,17 @@ opacity: 100%;
   display: none;
 }
 #body1 .home{
+  margin:auto;
+  text-align: left;
+  height: auto;
+  padding: 10px;
 opacity: 100%;
   background-color: #f7d6bd;
-  border-width: 2px black;
-  box-sizing: content-box;
-  width: 21%;
-  height:80%;
   color:white;
-  text-align: center;
-  display: flex;
-  display: flex-end;
-  margin: 50px;
-  font-style: bold;
+  text-align: left;
+  margin-bottom: 20px;
+  width: auto;
+  height:auto;
 }
 
 #body1 .products{
@@ -512,7 +529,14 @@ opacity: 100%;
   padding:50px;
   margin:auto;
  }
-
+#body1 .contact{
+    background-color:#f7d6bd;
+  color:white;
+  width: auto;  
+  height:auto;
+  padding:50px;
+  margin:auto;
+}
 
 
 
