@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 	body {
-		background-image: url("https://cdn.wallpapersafari.com/80/97/7vMQBk.jpg");
+		background-color: #f7d6bd;
 		width: 100vw;
 		height: 100vh;
     padding: 0px;
@@ -100,6 +100,7 @@ a{
 .mybutton{
   background: white;
   color:#d4af37;
+  font-family: inherit;
   border: solid 2px black;
   padding: 15px;
   margin: auto;
@@ -142,11 +143,12 @@ opacity: 100%;
   box-sizing: content-box;
   width: 40%;
   margin: auto;
-  color:white;
+  color:black;
   text-align: left;
   display: flex;
   display: flex-end;
   margin-bottom: 20px;
+  border: 3px solid black;
 
 
 }
@@ -176,11 +178,12 @@ opacity: 100%;
   padding: 10px;
 opacity: 100%;
   background-color: #f7d6bd;
-  color:white;
+  color:black;
   text-align: left;
   margin-bottom: 20px;
   width: auto;
   height:auto;
+  border: 3px black solid;
 }
 
 #body1 .products{
