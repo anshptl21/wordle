@@ -99,7 +99,7 @@ a{
 }
 .mybutton{
   background: white;
-  color:#d4af37;
+  color:black;
   font-family: inherit;
   border: solid 2px black;
   padding: 15px;
@@ -149,6 +149,7 @@ opacity: 100%;
   display: flex-end;
   margin-bottom: 20px;
   border: 3px solid black;
+  box-shadow: 3px 3px black;
 
 
 }
@@ -582,10 +583,12 @@ opacity: 100%;
  
  #footer{
    background-color: white;
+
    padding: 20px;
    margin-top:20px;
    width: 100%;
-
+  position: relative;
+   bottom:0;
 }
 
 #footer .mytext{
