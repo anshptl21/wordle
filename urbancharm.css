@@ -1,0 +1,224 @@
+ @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+body { 
+	min-width: 100vw;
+	min-height: 100vh;
+    margin: 0;
+	background-color: #e6ccb3;
+	overflow-x: hidden;
+    font-family: "Abel", sans-serif;
+ }
+
+ :hover{
+   transition:0.4s ease-in-out;
+ }
+
+ #header {
+ 	position: relatve;
+ 	padding: 10px;
+ 	top: 0;
+ 	background-color: white;
+ 	height: 20%;
+ 	width: 100vw
+ }
+
+ #header .title{
+ 	margin: 3%;
+
+ 	color: black;
+ 	font-size: 300%;
+ 	text-align: left;
+
+ }
+
+ #header .menu{	
+ 	text-align: center;
+ }
+
+ .text{
+    margin-left: 5%;
+    text-align: center;
+ 	color: black;
+ 	font-size: 50%;
+ }
+#header .social{
+    margin-left: 15%;
+    padding-top: 0%;
+    color: black;
+    font-size: 70%;
+    text-align: right;
+}
+
+.fa{
+   margin-left: 3%;
+}
+i:hover{
+   color: #e6ccb3;
+}
+
+.fa-img{
+   width: 4%;
+   height: 4%;
+   margin-left: 3%;
+   display: inline-grid;
+}
+#body{
+   position: relative;
+   min-width: 100vw;
+   min-height: 100vh;
+   object-position: bottom;
+}
+/* home */
+.home-textbox1{
+   position: absolute;
+   left: 10%;
+   bottom: 50%;
+}
+
+.home-textbox2{
+   position: absolute;
+   left: 40%;
+   bottom: 50%;
+}
+
+.home-textbox3{
+   position: absolute;
+   left: 70%;
+   bottom: 50%;
+}
+
+.home-textbox1, .home-textbox2, .home-textbox3{
+   background-color: #D1D1D1;
+   border-radius: 5px;
+   width: auto;
+   height: auto;
+   padding: 10px;
+   text-align: center;
+   margin: 5%;
+   box-shadow: 5px 5px black;
+}
+
+/* product */
+
+.product-textbox1, .product-textbox2, .product-textbox3{
+   background-color: #EBEFE5;
+   border-radius: 5px;
+   width: auto;
+   height: auto;
+   padding: 10px;
+   text-align: center;
+   margin: 5px;
+}
+
+.product-textbox1{
+   position: absolute;
+   left: 15%;
+   bottom: 50%;
+}
+
+.product-textbox2{
+   position: absolute;
+   left: 45%;
+   bottom: 50%;
+}
+
+.product-textbox3{
+   position: absolute;
+   left: 75%;
+   bottom: 50%;
+}
+
+.product-textbox1:hover, .product-textbox2:hover, .product-textbox3:hover{
+   box-shadow: 3px 3px 3px 3px grey;
+   transition:0.4s ease-in-out;
+}
+
+.contact-us-form-box{
+   background-color: white;
+   width: 50%;
+   height: auto;
+  
+   margin: 25%;
+   padding: 15px;
+}
+
+.contact-us-form-text{
+   font-family: inherit;
+   font-size: 120%;
+   margin-bottom: 5%;
+}
+hr{
+   background-color: transparent;
+   border: 1px black solid;
+   width: 10%;
+   position: relative;
+   top: 7%;
+   left: 0%;
+   padding-left: 0px;
+}
+input {
+   font-family: inherit;
+   color: white;
+   background-color: grey;
+   border-radius: 0px;
+   border: none;
+   padding: 5px;
+   width: 90%;
+   height: 10%;
+   margin-top: 2%;
+   margin-bottom: 6%;
+   font-size: 120%;
+}
+
+input:hover{
+   border: 2px black solid;
+}
+
+.submit-form-button{
+   width: 20%;
+
+}
+
+.submit-form-button:hover{
+   box-shadow: 3px 3px black;
+}
+
+#footer{
+   background-color: white;
+   padding: 10px;
+   min-width: 100vw;
+   min-height: 20vh;
+   position: relative;
+   bottom: 0;
+}
+
+#footer .footer-text{
+   text-align: center;
+   font-family: inherit;
+   font-size: 120%;
+   color: black;
+}
+
+.text a{
+   color: black;
+   text-decoration: none;
+}
+.text a:hover{
+   color: #e6ccb3 ;
+}
+
+::placeholder{
+   color: white;
+}
+
+@media (max-width: 970px){
+   #header .social{
+      margin-left: 2%;
+   }
+}
+
+@media (max-width: 900px){
+   #header .social{
+      text-align: center;
+   }
+}
+
