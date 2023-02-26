@@ -2,7 +2,7 @@ var keyboard = [];
 var letterList = [];
 var row = [];
 var id = 1;
-var answer = ["L", "O", "T", "U", "S"];
+var answer = ["D", "A", "N", "C", "E"];
 function creatingKeyBoard(){
 
 	/* creating array list for keyboard */
@@ -271,7 +271,7 @@ function backSpace(){
 }
 
 function showAnswer(id){
-	word = "LOTUS"
+	word = "DANCE"
 	if(id >= 25){
 		console.log("showAnswer")
 		if (document.getElementById("win").innerHTML !== "GREAT"){
