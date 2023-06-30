@@ -289,7 +289,7 @@ function showAnswer(id){
 
 
 
-function color(id, i){
+/*function color(id, i){
 	row.push(document.getElementById(id).innerHTML);
 	while (i < row.length){
 		console.log(row)
@@ -313,4 +313,28 @@ function color(id, i){
 			}
 
 		}
-	}
+	}*/
+function color(id, i){
+	row.push(document.getElementById(id).innerHTML);
+		while(i < row.length){
+			if (row[i] === answer[i]){
+				document.getElementById(id).style.background = "#29a329";
+				document.getElementById(id).style.border = "3px solid transparent";
+				answer[i] = 0;
+			} else { 
+				document.getElementById(id).style.background = "#476b6b";
+				document.getElementById(id).style.border = "3px solid transparent"
+				break;
+			}
+		}
+		while (t < row.length){
+			if(answer.includes(row[i])){
+				console.log(answer)
+				document.getElementById(id).style.background = "rgb(230, 230, 0)";
+				document.getElementById(id).style.border = "3px solid transparent"
+				index = answer.indexOf(row[i]);
+				answer[index] = 0;
+				break;
+			}
+		}
+}
