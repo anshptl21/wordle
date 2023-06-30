@@ -2,7 +2,7 @@ var keyboard = [];
 var letterList = [];
 var row = [];
 var id = 1;
-var answer = ["D", "A", "N", "C", "E"];
+var answer = ["L", "O", "T", "U", "S"];
 function creatingKeyBoard(){
 
 	/* creating array list for keyboard */
