@@ -1,340 +1,177 @@
-var keyboard = [];
-var letterList = [];
-var row = [];
-var id = 1;
-var answer = ["L", "O", "T", "U", "S"];
-function creatingKeyBoard(){
-
-	/* creating array list for keyboard */
-	var q = document.getElementById("q").innerHTML;
-	var w = document.getElementById("w").innerHTML;
-	var e = document.getElementById("e").innerHTML;
-	var r = document.getElementById("r").innerHTML;
-	var t = document.getElementById("t").innerHTML;
-	var y = document.getElementById("y").innerHTML;
-	var u = document.getElementById("u").innerHTML;
-	var i = document.getElementById("i").innerHTML;
-	var o = document.getElementById("o").innerHTML;
-	var p = document.getElementById("p").innerHTML;
-	var a = document.getElementById("a").innerHTML;
-	var s = document.getElementById("s").innerHTML;
-	var d = document.getElementById("d").innerHTML;
-	var f = document.getElementById("f").innerHTML;
-	var g = document.getElementById("g").innerHTML;
-	var h = document.getElementById("h").innerHTML;
-	var j = document.getElementById("j").innerHTML;
-	var k = document.getElementById("k").innerHTML;
-	var l = document.getElementById("l").innerHTML;
-	var z = document.getElementById("z").innerHTML;
-	var x = document.getElementById("x").innerHTML;
-	var c = document.getElementById("c").innerHTML;
-	var v = document.getElementById("v").innerHTML;
-	var b = document.getElementById("b").innerHTML;
-	var n = document.getElementById("n").innerHTML;
-	var m = document.getElementById("m").innerHTML;
-	keyboard.push(q, w, e, r, t, y, u, i, o, p, a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m);
-
+var wordle_word = "WARPS"
+function retrieveExistingData(){
+	document.getElementById("wordle").style.animation = "1s ease-in fadeIn"
+	items_in_store = []
+	for (var item = 1; item < 7; item++){
+		color_items = []
+		retrieveItem = window.localStorage.getItem("row" + item)
+		row = document.getElementById("row" + item)
+		rows = row.getElementsByClassName("row")
+		if (retrieveItem != null){
+			row.value = retrieveItem
+			items_in_store.push(retrieveItem);
+		}else {
+			return false
+		}
+		for (var box = 0; box < 5; box++){
+			colorItem = window.localStorage.getItem("row" + item + "_" + box)
+			color_items.push(colorItem)
+		}
+		for (var i = 0; i < 5; i++){
+				rows[i].innerHTML = row.value[i]
+				rows[i].style.background = color_items[i]
+				rows[i].style.border = "3px solid transparent"
+		}
+	}
 }
 
+	
+	
+document.getElementById('wordle-keyboard').addEventListener('click', function(event) {
+    if (event.target.classList.contains('key')) {
+        choosingKeyBoard(event.target.getAttribute('data-letter'));
+    }
+});
+document.getElementById('wordle-keyboard-last-row').addEventListener('click', function(event) {
+	if (event.target.classList.contains('key')) {
+        choosingKeyBoard(event.target.getAttribute('data-letter'));
+    } else if (event.target.classList.contains('enter')){
+		row = findRow()
+		enterWord(row)
+	} else if (event.target.classList.contains('backspace')){
+		row = findRow()
+		backspace(row)
+	}
+});
+function findRow(){
+	var length = 6;
+	for (var i = 1; i <= length; i++){
+		if (document.getElementById("row" + i).value == undefined){
+			return "row" + i
+		}
+	}
+}
 
 function choosingKeyBoard(key) {
-	creatingKeyBoard();
-	for (i in keyboard){
-		if (key === keyboard[i]){
-			var letter;
-			letter = key;
+	row_number = findRow()
+	var row = document.getElementById(row_number);
+	var rows = row.getElementsByClassName("row");
+	for (var i = 0; i < rows.length; i++){
+		if (rows[i].innerHTML == ""){
+			rows[i].innerHTML = key;
+			break;			
 		}
 	}
-
-
-	var id = 1;
-	while (id <= 25){
-			if (letter == undefined){
-				break;
-			}
-			if (document.getElementById("win").style.display === "inherit"){
-				break;
-			}
-			var text_box = document.getElementById(id).className;
-			var text_box_value = document.getElementById(id).value;
-		if (text_box === "row1 one"){
-				if (document.getElementById(id).value == undefined){
-					document.getElementById(id).innerHTML = letter;
-					document.getElementById(id).value = letter;
-					break;
-				}
-		} else if (text_box === "row2 one"){
-			if (document.getElementsByClassName("row1 one").value === "enter"){
-				if (document.getElementById(id).value == undefined){
-					document.getElementById(id).innerHTML = letter;
-					document.getElementById(id).value = letter;
-					break;
-				}
-			}
-		} else if (text_box === "row3 one"){
-			if (document.getElementsByClassName("row2 one").value === "enter"){
-				if (document.getElementById(id).value == undefined){
-					document.getElementById(id).innerHTML = letter;
-					document.getElementById(id).value = letter;
-					break;
-				}
-			}
-		} else if (text_box === "row4 one"){
-			if (document.getElementsByClassName("row3 one").value === "enter"){
-				if (document.getElementById(id).value == undefined){
-					document.getElementById(id).innerHTML = letter;
-					document.getElementById(id).value = letter;
-					break;
-				}
-			}
-		} else if (text_box === "row5 one"){
-			if (document.getElementsByClassName("row4 one").value === "enter"){
-				if (document.getElementById(id).value == undefined){
-					document.getElementById(id).innerHTML = letter;
-					document.getElementById(id).value = letter;
-					break;
-				}
-			}
-		}
-
-		id++;
-	}
-
 }
 
-
 document.addEventListener("keypress", function(event) {
-    if (event.key !== undefined) {
+    if (event.key !== undefined && event.key !== "Enter") {
     	var keyboard;
     	keyboard = event.key.toUpperCase();
         choosingKeyBoard(keyboard);
     }
+	if (event.key == "Enter"){
+		row = findRow()
+		enterWord(row);
+	}
 
 });
 
 document.addEventListener("keydown", function(event){
-	if(event.key == "Enter"){
-		enterWord();
-	}
-
 	if (event.key == "Backspace"){
-		backSpace();
+		row = findRow()
+		backspace(row)
 	}
 
 });
 
-function enterWord(){
-	var i = 0;
-	var t = 0;
-		var className_value = document.getElementById(id).className.value;
-		var text_box = document.getElementById(id).className;
-		var text_box_value = document.getElementById(id).value;
-		if (document.getElementById(5).value !== undefined){
-			while (id <= 5){
-				color(id, i)
-				showWin(text_box)
-				id++;
-				i++;
-			}
-			document.getElementsByClassName("row1 one").value = "enter"
-		}
-		if (document.getElementById(10).value !== undefined){
-			row = [];
-			answer = ["L", "O", "T", "U", "S"];
-			while (id <= 10){
-				color(id, i)
-				showWin(text_box)
-				id++;
-				i++;
-			}
-			document.getElementsByClassName("row2 one").value = "enter";
-
-		}
-		if (document.getElementById(15).value !== undefined){
-			row = [];
-			answer = ["L", "O", "T", "U", "S"];
-			while (id <= 15){
-				color(id, i)
-				showWin(text_box)
-				id++;
-				i++;
-
-			}
-			document.getElementsByClassName("row3 one").value = "enter";
-		}
-		if (document.getElementById(20).value !== undefined){
-			row = [];
-			answer = ["L", "O", "T", "U", "S"];
-			while (id <= 20){
-				color(id, i)
-				showWin(text_box)
-				id++;
-				i++;
-
-			}
-
-			document.getElementsByClassName("row4 one").value = "enter";
-
-		}
-		if (document.getElementById(25).value !== undefined){
-			row = [];
-			answer = ["L", "O", "T", "U", "S"];
-			while (id <= 25){
-				color(id, i)
-				showWin(text_box)
-				showAnswer(id)
-				id++;
-				i++;
-
-			}
-			document.getElementsByClassName("row5 one").value = "enter";
-		}
-}
-
-
-
-
-
-function showWin(classname){
-	var letter = 1;
-	var counter = 1;
-	while (letter <= 25){
-		if (document.getElementById(letter).className === classname){
-			if (document.getElementById(letter).style.background === "rgb(41, 163, 41)"){
-				counter++;
-		}
-			if (counter === 6){
-				document.getElementById("win").innerHTML = "GREAT"
-				document.getElementById("win").style.display = "inherit"
-				document.getElementById("win").style.animation = "1s ease-in fadeIn"
-			}
-	}
-	letter++;
-}
-
-}
-var backspace = document.getElementById("backspace");
-
-backspace.onclick = function(){
-
-	var id = 1;
-	if (document.getElementsByClassName("row1 one").value === "enter"){
-		id = 7;
-	}
-	if (document.getElementsByClassName("row2 one").value === "enter"){
-		id = 12;
-	}
-	if (document.getElementsByClassName("row3 one").value === "enter"){
-		id = 17;
-	}
-	if (document.getElementsByClassName("row4 one").value === "enter"){
-		id = 22;
-	}
-	if (document.getElementById("win").style.display === "inherit"){
-		id = 27;
-	}
-	while (id <= 25){
-	if (document.getElementById(id).value === undefined){
-			id1 = id - 1;
-			document.getElementById(id1).innerHTML = null;
-			document.getElementById(id1).value = undefined;
+function backspace(row_number){
+	var row = document.getElementById(row_number);
+	var rows = row.getElementsByClassName("row");
+	for (var i = 4; i >= 0; i--){
+		if (rows[i].innerHTML != ""){
+			rows[i].innerHTML = ""
 			break;
 		}
-	id++;
 	}
 }
 
-
-function backSpace(){
-	var id = 1;
-	if (document.getElementsByClassName("row1 one").value === "enter"){
-		id = 7;
+function enterWord(row){
+	var answer = []
+	for (i in wordle_word){
+		answer.push(wordle_word[i])
 	}
-	if (document.getElementsByClassName("row2 one").value === "enter"){
-		id = 12;
-	}
-	if (document.getElementsByClassName("row3 one").value === "enter"){
-		id = 17;
-	}
-	if (document.getElementsByClassName("row4 one").value === "enter"){
-		id = 22;
-	}
-	while (id <= 26){
-	if (document.getElementById(id).value === undefined){
-			id1 = id - 1;
-			document.getElementById(id1).innerHTML = null;
-			document.getElementById(id1).value = undefined;
-			break;
-		}
-	id++;
-	}
-}
-
-function showAnswer(id){
-	word = "DANCE"
-	if(id >= 25){
-		console.log("showAnswer")
-		if (document.getElementById("win").innerHTML !== "GREAT"){
-			console.log("SHOW")
-			$("#win").css("display", "inherit");
-			document.getElementById("win").innerHTML = word
-			document.getElementById("win").style.animation = "1s ease-in fadeIn"
-
+	row_word = []
+	row_num = document.getElementById(row)
+	var rows = row_num.getElementsByClassName("row");
+	for (var i = 0;  i < rows.length; i++){
+		if (rows[i].innerHTML == ""){
+			return alert("Row is still empty")
 		} else {
-			return false
+			row_word.push(rows[i].innerHTML)
 		}
+	}
+	//analyzing word algo
+	//making every letter background automatically gray
+	for (var i = 0; i < rows.length; i++){
+			rows[i].style.background = "#476b6b"; //gray
+			rows[i].style.border = "3px solid transparent";
+	}
+	for (var j=k=0; j < row_word.length && k < answer.length; j++, k++){
+		if (row_word[j] == answer[k]){
+			if (rows[j].innerHTML == row_word[j]){
+				rows[j].style.background = "#29a329"; //green
+				rows[j].style.border = "3px solid transparent";
+				answer[k] = 0
+			}	
+		}
+	}
+	for (var j=0; j < row_word.length; j++){
+		if(answer.includes(row_word[j])){
+			rows[j].style.background = "rgb(230, 230, 0)"; //yellow
+			rows[j].style.border = "3px solid transparent"
+			index = answer.indexOf(row_word[j]);
+			answer[index] = 0
+		}
+	}
+	row_num.value = row_word
+	var green_count = 0
+	for (var i = 0; i < rows.length; i++){
+		if (rows[i].style.background == "rgb(41, 163, 41)"){
+			green_count++
+		}
+	}
+	if (green_count == 5){
+		showWin("win")
+	}else if (row == "row6"){
+		showWin("lost")
+	}
+	var final_guess = ""
+	for (var i = 0; i < row_word.length; i++){
+		final_guess += row_word[i]
+	}
+	//putting entered words in window session storage 
+	//session storage will delete once browser is closed 
+	window.localStorage.setItem(row, final_guess)
+	for (var i = 0; i < rows.length; i++){
+		window.localStorage.setItem(row + "_" + i, rows[i].style.background)
 	}
 }
 
 
+function showWin(state){
+	win_html = document.getElementById("win")
+	win = ["Great", "Awesome", "Incredible", "Nice Job", "Excellent", "Outstanding", "Remarkable"]
+	if (state == "win"){
+		$("#win").css("display", "inherit");
+			win_html.innerHTML = win[(Math.floor(Math.random() * win.length))]
+			win_html.style.animation = "1s ease-in fadeIn"
+	} else if (state == "lost"){
+		$("#win").css("display", "inherit");
+		win_html.innerHTML = wordle_word
+		win_html.style.animation = "1s ease-in fadeIn"
 
-
-/*function color(id, i){
-	row.push(document.getElementById(id).innerHTML);
-	while (i < row.length){
-		console.log(row)
-		console.log(answer)
-		console.log("I before " + i)
-		if (row[i] === answer[i]){
-			document.getElementById(id).style.background = "#29a329";
-			document.getElementById(id).style.border = "3px solid transparent";
-			answer[i] = 0;
-			break;
-		} else if(answer.includes(row[i])){
-			document.getElementById(id).style.background = "rgb(230, 230, 0)";
-			document.getElementById(id).style.border = "3px solid transparent"
-			index = answer.indexOf(row[i]);
-			answer[index] = 0;
-			break;
-			} else {
-				document.getElementById(id).style.background = "#476b6b";
-				document.getElementById(id).style.border = "3px solid transparent"
-				break;
-			}
-
-		}
-	}*/
-function color(id, i){
-	row.push(document.getElementById(id).innerHTML);
-		while(i < row.length){
-			if (row[i] === answer[i]){
-				document.getElementById(id).style.background = "#29a329";
-				document.getElementById(id).style.border = "3px solid transparent";
-				answer[i] = 0;
-			} else { 
-				document.getElementById(id).style.background = "#476b6b";
-				document.getElementById(id).style.border = "3px solid transparent"
-				break;
-			}
-		}
-		while (t < row.length){
-			if(answer.includes(row[i])){
-				console.log(answer)
-				document.getElementById(id).style.background = "rgb(230, 230, 0)";
-				document.getElementById(id).style.border = "3px solid transparent"
-				index = answer.indexOf(row[i]);
-				answer[index] = 0;
-				break;
-			}
-		}
-}
+	}
+}	
+	
+	
