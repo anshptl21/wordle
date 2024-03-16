@@ -70,6 +70,10 @@ document.addEventListener("keypress", function(event) {
     	keyboard = event.key.toUpperCase();
         choosingKeyBoard(keyboard);
     }
+	if (event.key == "Backspace"){
+		row = findRow()
+		backspace(row)
+	}
 	if (event.key == "Enter"){
 		row = findRow()
 		enterWord(row);
