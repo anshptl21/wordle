@@ -1,5 +1,18 @@
 var wordle_word = "WARPS"
+var now = new Date();
+	var night = new Date(
+    	now.getFullYear(),
+    	now.getMonth(),
+    	now.getDate() + 1, // the next day, ...
+    	0, 0, 0 // ...at 00:00:00 hours
+	);
 function retrieveExistingData(){
+	var msTillMidnight = night.getTime() - now.getTime();
+	if (msTillMidnight == 0){
+		window.localStorage.clear();
+		return false;
+	}
+	setTimeout('document.location.refresh()', msTillMidnight);
 	document.getElementById("wordle").style.animation = "1s ease-in fadeIn"
 	items_in_store = []
 	for (var item = 1; item < 7; item++){
