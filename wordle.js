@@ -33,8 +33,10 @@ console.log(data);
 	
 	
 document.getElementById('wordle-keyboard').addEventListener('click', function(event) {
-    if (event.target.classList.contains('key')) {
-        choosingKeyBoard(event.target.getAttribute('data-letter'));
+    if (!stop){
+   	if (event.target.classList.contains('key')) {
+        	choosingKeyBoard(event.target.getAttribute('data-letter'));
+    	}
     }
 });
 document.getElementById('wordle-keyboard-last-row').addEventListener('click', function(event) {
@@ -70,11 +72,13 @@ function choosingKeyBoard(key) {
 }
 
 document.addEventListener("keypress", function(event) {
-    if (event.key !== undefined && event.key !== "Enter") {
-    	var keyboard;
-    	keyboard = event.key.toUpperCase();
-        choosingKeyBoard(keyboard);
-    }
+	if (!stop){	
+    		if (event.key !== undefined && event.key !== "Enter") {
+    			var keyboard;
+    			keyboard = event.key.toUpperCase();
+        		choosingKeyBoard(keyboard);
+  		}
+	}
 	if (event.key == "Backspace"){
 		row = findRow()
 		backspace(row)
