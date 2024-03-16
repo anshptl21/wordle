@@ -25,6 +25,11 @@ function retrieveExistingData(){
 	}
 }
 
+const gistUrl = 'https://gist.github.com/cfreshman/cdcdf777450c5b5301e439061d29694c.js';
+
+const {data, error} = await getGistFirstFileText(`${gistUrl}.json`);
+console.log(data);
+
 	
 	
 document.getElementById('wordle-keyboard').addEventListener('click', function(event) {
