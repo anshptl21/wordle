@@ -1,4 +1,49 @@
+const url = 'https://raw.githubusercontent.com/tabatkins/wordle-list/main/words';
+
+// Global variable to hold the word list
+let words = [];
+let wordleOfTheDay = []
+// Function to fetch the word list
+async function fetchWordList() {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const text = await response.text();
+    words = text.split('\n').map(word => word.trim()).filter(word => word.length > 0);
+	wordleOfTheDay = text.split('\n').map(word => word.trim()).filter(word => word.length > 0);
+    console.log('Word list fetched successfully:', words);
+    // Call a function to check for a specific word after fetching
+    checkWord('example'); // Replace 'example' with the variable you want to check
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+  }
+}
+
+// Function to check if a word exists in the global words array
+function checkWord(wordToCheck) {
+  if (words.includes(wordToCheck)) {
+    console.log(`The word "${wordToCheck}" is in the list.`);
+  } else {
+    console.log(`The word "${wordToCheck}" is not in the list.`);
+  }
+}
+
+// Fetch the word list when the script runs
+fetchWordList();
+
+// Fetch the word list when the script runs
+console.log(typeof(fetchWordList()))
+
 var wordle_word = "WARPS"
+wordleWinner = wordle_word.toLowerCase();
+for (let j = 0; j < wordleOfTheDay.length; j++){
+	if (wordleWinner == wordleOfTheDay[j]){
+		delete wordleOfTheDay[j]
+		break;
+	}
+}
 var now = new Date();
 	var night = new Date(
     	now.getFullYear(),
@@ -7,6 +52,7 @@ var now = new Date();
     	0, 0, 0 // ...at 00:00:00 hours
 	);
 function retrieveExistingData(){
+    
 	var msTillMidnight = night.getTime() - now.getTime();
 	if (msTillMidnight == 0){
 		window.localStorage.clear();
@@ -38,19 +84,19 @@ function retrieveExistingData(){
 	}
 }
 
-const gistUrl = 'https://gist.github.com/cfreshman/cdcdf777450c5b5301e439061d29694c.js';
+//const gistUrl = 'https://gist.github.com/cfreshman/cdcdf777450c5b5301e439061d29694c.js';
 
-const {data, error} = await getGistFirstFileText(`${gistUrl}.json`);
-console.log(data);
+//const {data, error} = await getGistFirstFileText(`${gistUrl}.json`);
+//console.log(data);
 
 	
 	
 document.getElementById('wordle-keyboard').addEventListener('click', function(event) {
-    if (!stop){
+   // if (!stop){
    	if (event.target.classList.contains('key')) {
         	choosingKeyBoard(event.target.getAttribute('data-letter'));
     	}
-    }
+   // }
 });
 document.getElementById('wordle-keyboard-last-row').addEventListener('click', function(event) {
 	if (event.target.classList.contains('key')) {
@@ -85,12 +131,12 @@ function choosingKeyBoard(key) {
 }
 
 document.addEventListener("keypress", function(event) {
-	if (!stop){	
+	//if (!stop){	
     		if (event.key !== undefined && event.key !== "Enter") {
     			var keyboard;
     			keyboard = event.key.toUpperCase();
         		choosingKeyBoard(keyboard);
-  		}
+  		//}
 	}
 	if (event.key == "Backspace"){
 		row = findRow()
@@ -123,6 +169,8 @@ function backspace(row_number){
 }
 
 function enterWord(row){
+	var final_guess = ""
+	
 	var answer = []
 	for (i in wordle_word){
 		answer.push(wordle_word[i])
@@ -137,7 +185,16 @@ function enterWord(row){
 			row_word.push(rows[i].innerHTML)
 		}
 	}
-	//analyzing word algo
+	console.log(row_word)
+	final_guess = ''
+	for (var i = 0; i < row_word.length; i++){
+		final_guess += row_word[i]
+	}
+	console.log(final_guess)
+	final = final_guess.toLowerCase()
+	console.log(final)
+	if (words.includes(final)){
+	//analyzing word alg
 	//making every letter background automatically gray
 	for (var i = 0; i < rows.length; i++){
 			rows[i].style.background = "#476b6b"; //gray
@@ -172,9 +229,13 @@ function enterWord(row){
 	}else if (row == "row6"){
 		showWin("lost")
 	}
-	var final_guess = ""
+	final_guess = ''
 	for (var i = 0; i < row_word.length; i++){
 		final_guess += row_word[i]
+	}
+	}
+	else{
+		return alert("Word Not Found")
 	}
 	//putting entered words in window session storage 
 	//session storage will delete once browser is closed 
@@ -183,6 +244,7 @@ function enterWord(row){
 		window.localStorage.setItem(row + "_" + i, rows[i].style.background)
 	}
 }
+
 
 
 function showWin(state){
